@@ -1,0 +1,96 @@
+#app {
+    font-family: Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    font-size: 18px;
+  } 
+  
+  body *{
+    box-sizing: border-box;
+  }
+
+  body {
+    background-color: #424040;
+  }
+  
+  body, h1, h2, p, ul {
+    width: 100%;
+    font-size: 100%;    
+    padding: 0;
+    margin: 0;
+    font-family: sans-serif;
+    line-height: 1;
+  }
+  
+  a {
+    // display: inline-block;
+    text-decoration: none;
+    color: inherit;   
+    font-family: inherit;
+  }
+  
+  button {
+    font-family: inherit;
+    color: inherit;   
+  }
+  
+/** Type of Pokemon Color */
+.bg_bug {
+  background: #e0c068;
+}
+.bg_dark {
+  background: #f8d030;
+}
+.bg_dragon {
+  background: #7038f8;
+}
+.bg_electric {
+  background: #ee99ac;
+}
+.bg_fairy {
+  background: #a8b820;
+}
+.bg_fighting {
+  background: #a8a878;
+}
+.bg_fire {
+  background: #f08030;
+}
+.bg_flying {
+  background: #57df62;
+}
+.bg_ghost {
+  background: #b8a038;
+}
+.bg_grass {
+  background: #d2a88b;
+}
+.bg_ground {
+  background: #a040a0;
+}
+.bg_ice {
+  background:#98d8d8;
+}
+.bg_normal {
+  background: #8c95d7;
+}
+.bg_poison {
+  background: #d95b54;
+}
+.bg_psychic {
+  background: #a890f0;
+}
+.bg_rock {
+  background: #f85888;
+}
+.bg_steel {
+  background: #68a090;
+}
+.bg_water {
+  background: #6890f0;
+}
+.bg_unknown {
+  background: #b8b8d0;
+}
