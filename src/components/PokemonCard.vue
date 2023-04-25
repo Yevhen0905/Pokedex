@@ -1,6 +1,6 @@
 <template>
   <div class="pokemon_item"  @click="showPokemon(id)"> 
-      <img class="pokemon_item_image" :src="`${imageURL}/${id}.png`" />
+      <img v-if="`${imageURL}/${id}.png`" class="pokemon_item_image" :src="`${imageURL}/${id}.png`" />
       <div class="pokemon_item_title">
         <span class="pokemon_item_id"> № {{ id }}</span> 
         <h2 class="pokemon_item_text">{{ pokemon.name }}</h2>
@@ -14,7 +14,6 @@
 </template>
 
 <script>
-// import PokemonDetails from './PokemonDetails.vue';
 
 export default {
   name: 'PoKemonCard',
@@ -35,23 +34,6 @@ export default {
     showPokemon(id) {
       this.$emit("clicked", id);
     }
-    // openDetails() {
-    //   this.$modal.show(PokemonDetails, 
-    //     {
-    //       id: this.id
-    //     },
-    //     {
-    //       height: "auto"
-    //     },
-    //     {
-    //       button: [
-    //         {
-    //           modalClose: () => { this.$modal.close(this.id); }
-    //         }
-    //       ]
-    //     }
-    //   )     
-    // }
   }
 }
 </script>

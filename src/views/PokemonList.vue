@@ -2,7 +2,7 @@
   <div class="main">
     <div class="pokemon_list_title">Pokedex</div>
     <SearchInput @filter="filterByName"/>
-    <div class="container_pokemon" @click="openDetails">
+    <div class="container_pokemon">
       <PokemonCard
         :key="pokemon.name"
         v-for="pokemon in filterPokemon"
@@ -11,36 +11,10 @@
         @clicked="fetchPokemonDetails"
       />
     </div>
-    <div class="pagination">
-      <v-pagination 
-        v-if="allPokemon.results"
-        v-model="page"
-        :total-visible="6" 
-        circle 
-        :length="Math.ceil(allPokemon.count / limit)" 
-        @input="fetchAllPokemon"
-        @next="fetchAllPokemon" 
-        @previous="fetchAllPokemon"
-        >
-      </v-pagination>
-    </div>
-    <div class="pagination_limit_section">
-      <p class="pagination_limit_title">Number of cards per page</p>
-      <div class="pagination_limit">
-        <div 
-          class="pagination_limit_btn"
-          v-for="(newLimit) in [10, 20, 50]"
-          :key="newLimit"
-        >
-          <button 
-            :class="['pagination_btn', newLimit == limit ? 'active' : '']"
-            @click="changeLimit(newLimit)"
-          >
-            {{ newLimit }}
-          </button>
-        </div>
-      </div>
-    </div>
+    <Pagination 
+      :all-pokemon="allPokemon" 
+      @select="fetchAllPokemon"
+    />
     <BackTop/>
   </div>
 </template>
@@ -48,14 +22,16 @@
 <script>
 import axios from 'axios'
 import BackTop from '@/components/BackTop.vue'
+import Pagination from '@/components/Pagination.vue'
 import PokemonCard from '@/components/PokemonCard.vue'
 import SearchInput from '@/components/SearchInput.vue'
-import PokemonDetails from '@/components/PokemonDetails.vue';
+import PokemonDetails from '@/components/PokemonDetails.vue'
 
 export default {
   name: 'PokemonList',
   components: {
     BackTop,
+    Pagination,
     SearchInput,
     PokemonCard
 },
@@ -65,9 +41,6 @@ export default {
       allPokemon: [],
       pokemonDetail: {},
       searchByName: '',
-      page: 1,
-      limit: 20,
-      // showModal: false
     }
    },
   mounted() {
@@ -84,12 +57,12 @@ export default {
      }
   },
   methods: {
-    async fetchAllPokemon () {
+    async fetchAllPokemon (page, limit) {
       try{
-        const offset = this.limit*(this.page - 1);
+        const offset = limit*(page - 1);
         const res = await axios.get(this.URL, {
           params: {
-            limit: this.limit,
+            limit: limit,
             offset: offset
           }
         })
@@ -108,6 +81,7 @@ export default {
       } catch {
         console.console.log(e)
       }
+      this.openDetails()
     },
     openDetails() {  
       this.$modal.show(PokemonDetails, 
@@ -132,10 +106,6 @@ export default {
     getId(url) {
        const splitted = url.split('pokemon');
        return Number(splitted[splitted.length - 1].replace(/\//g, ''));
-    },
-    changeLimit(changeNewLimit) {
-      this.limit = changeNewLimit;
-      this.fetchAllPokemon()
     },
     scrollToTop() {
       window.scrollTo({
@@ -166,43 +136,43 @@ export default {
     letter-spacing: 2px;
     margin-bottom: 1rem;
 }
-.pagination {
-    margin-bottom: 1rem;
-}
-.theme--light.v-pagination .v-pagination__item--active {
-    background: #2196F3;
-}
-.theme--light.v-pagination .v-pagination__item {
-    font-weight: 600;
-}
-.pagination_limit_title {
-  color: #fff;
-    font-size: 1.2rem;
-    text-align: center;
-    font-weight: 600;
-}
-.pagination_limit {
-    text-align: center;
-}
-.pagination_limit_btn {
-  display: inline-block
-}
-.pagination_btn {
-  background-color: #ffffffed;
-    font-weight: 600;
-    border-radius: 50%;
-    width: 2rem;
-    height: 2rem;
-    margin: 0.5rem;
-    box-shadow: -1px 0px 6px 2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+// .pagination {
+//     margin-bottom: 1rem;
+// }
+// .theme--light.v-pagination .v-pagination__item--active {
+//     background: #2196F3;
+// }
+// .theme--light.v-pagination .v-pagination__item {
+//     font-weight: 600;
+// }
+// .v-pagination__more {
+//     border-radius: 50%;
+//     color: #fff;
+// }
+// .pagination_limit_title {
+//   color: #fff;
+//     font-size: 1.2rem;
+//     text-align: center;
+//     font-weight: 600;
+// }
+// .pagination_limit {
+//     text-align: center;
+// }
+// .pagination_limit_btn {
+//   display: inline-block
+// }
+// .pagination_btn {
+//   background-color: #ffffffed;
+//     font-weight: 600;
+//     border-radius: 50%;
+//     width: 2rem;
+//     height: 2rem;
+//     margin: 0.5rem;
+//     box-shadow: -1px 0px 6px 2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
 
-    &.active {
-      background-color: #2196F3;
-      color: #fff;
-    }
-}
-.v-pagination__more {
-    border-radius: 50%;
-    color: #fff;
-}
+//     &.active {
+//       background-color: #2196F3;
+//       color: #fff;
+//     }
+// }
 </style>

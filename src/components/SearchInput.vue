@@ -4,7 +4,8 @@
          <v-text-field
             label="Search"
             prepend-inner-icon="mdi-magnify" 
-            class="txt-search" v-model="search"
+            class="txt-search"
+            v-model="search"
             @keyup="$emit('filter', search)"
             >
          </v-text-field>
@@ -19,12 +20,7 @@ export default {
       return {
          search: ''
       }
-   },
-   // methods: {
-   //    inputName(searchByName) {
-   //       this.$emit('filter', searchByName)
-   //    }
-   // }
+   }
 }
 </script>
 
