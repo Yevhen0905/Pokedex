@@ -10,7 +10,7 @@
            @input="getPage(page, limit)" 
            @next="getPage(page, limit)"
            @previous="getPage(page, limit)"
-           >
+        >
         </v-pagination>
         </div>
         <div class="pagination_limit_section">

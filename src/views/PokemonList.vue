@@ -49,16 +49,6 @@ export default {
   mounted() {
     this.fetchAllPokemon()
   },
-  computed: {
-     filterPokemon() {
-       if(this.searchByName === '') {
-        return this.allPokemon.results
-       }
-       return this.allPokemon.results.filter((pokemon) => {
-        return pokemon.name.toLowerCase().includes(this.searchByName.toLowerCase())
-       })
-     }
-  },
   methods: {
     async fetchAllPokemon (page, limit) {
       try{
@@ -71,9 +61,8 @@ export default {
         })
         this.scrollToTop()
         this.allPokemon = res.data
-        console.log(this.allPokemon);
       } catch {
-         console.log(e)
+        console.log(e)
       }
     },
     async fetchPokemonDetails(name) {
@@ -81,13 +70,12 @@ export default {
         try {
           const res = await axios.get(`${this.URL}/${name.toLowerCase()}`)
           this.pokemonDetail = res.data
-          console.log(this.pokemonDetail);
           this.openDetails()
         } catch(e) {
           alert('There is no such pokemon name')
         }      
       } else {
-        alert('Enter name pokemon')
+          alert('Enter name pokemon')
       }
     },
     openDetails() {  
@@ -107,21 +95,17 @@ export default {
         }
       )
     },
-    // filterByName(search) {
-    //   this.searchByName = search
-    // },
     getId(url) {
-       const splitted = url.split('pokemon');
-       return Number(splitted[splitted.length - 1].replace(/\//g, ''));
+      const splitted = url.split('pokemon');
+      return Number(splitted[splitted.length - 1].replace(/\//g, ''));
     },
     scrollToTop() {
       window.scrollTo({
-          top: 0,
-          left: 0,
-          behavior: 'smooth'
-        });
-    } 
-    
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+      });
+    }    
   }
 }
 </script>
@@ -135,7 +119,7 @@ export default {
     margin: 2rem 0;
 }
 .pokemon_list_title {
-  font-family: "Luckiest Guy", cursive;
+   font-family: "Luckiest Guy", cursive;
     font-size: 75px;
     font-weight: 400;
     color: #f60101;

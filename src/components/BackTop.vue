@@ -1,7 +1,18 @@
 <template>
     <div>
-        <v-btn v-scroll="onScroll" v-show="fab" fab dark fixed bottom right color="transparent"
-            class="transparent elevation-0" @click="toTop" style="z-index: 10">
+        <v-btn 
+            v-scroll="onScroll" 
+            v-show="fab" 
+            fab
+            dark 
+            fixed 
+            bottom 
+            right 
+            color="transparent"
+            class="transparent elevation-0" 
+            @click="toTop" 
+            style="z-index: 10"
+        >
             <i class="fas fa-arrow-circle-up fa-2x" />
         </v-btn>
     </div>

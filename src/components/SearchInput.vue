@@ -7,7 +7,7 @@
             class="txt-search"
             v-model="search"
             @keyup="$emit('filter', search)"
-            >
+         >
          </v-text-field>
       </v-col>
       <div class="block_search_item">
