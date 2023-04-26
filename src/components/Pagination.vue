@@ -46,7 +46,6 @@ export default {
     methods: {  
         changeLimit(changeNewLimit, page) {
             this.limit = changeNewLimit;
-            console.log(this.limit);
             this.getPage(page, this.limit)
         },
         getPage(page, limit) {

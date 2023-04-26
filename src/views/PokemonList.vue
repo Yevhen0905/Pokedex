@@ -1,17 +1,19 @@
 <template>
   <div class="main">
     <div class="pokemon_list_title">Pokedex</div>
-    <SearchInput @filter="filterByName"/>
+    <SearchInput @searchPokemon="fetchPokemonDetails"/>
+    <Loader :all-pokemon="allPokemon" />
     <div class="container_pokemon">
       <PokemonCard
         :key="pokemon.name"
-        v-for="pokemon in filterPokemon"
+        v-for="pokemon in allPokemon.results"
         :pokemon="pokemon"
         :id="getId(pokemon.url)"
         @clicked="fetchPokemonDetails"
       />
     </div>
     <Pagination 
+       v-show="allPokemon.results"
       :all-pokemon="allPokemon" 
       @select="fetchAllPokemon"
     />
@@ -21,6 +23,7 @@
 
 <script>
 import axios from 'axios'
+import Loader from '@/components/Loader.vue'
 import BackTop from '@/components/BackTop.vue'
 import Pagination from '@/components/Pagination.vue'
 import PokemonCard from '@/components/PokemonCard.vue'
@@ -30,6 +33,7 @@ import PokemonDetails from '@/components/PokemonDetails.vue'
 export default {
   name: 'PokemonList',
   components: {
+    Loader,
     BackTop,
     Pagination,
     SearchInput,
@@ -39,8 +43,8 @@ export default {
     return {
       URL: 'https://pokeapi.co/api/v2/pokemon',
       allPokemon: [],
+      pokemonSearch: [],
       pokemonDetail: {},
-      searchByName: '',
     }
    },
   mounted() {
@@ -73,15 +77,19 @@ export default {
          console.log(e)
       }
     },
-    async fetchPokemonDetails(id) {
-      try {
-        const res = await axios.get(`${this.URL}/${id}`)
-        this.pokemonDetail = res.data
-        console.log(this.pokemonDetail);
-      } catch {
-        console.console.log(e)
+    async fetchPokemonDetails(name) {
+      if(name !== '') {
+        try {
+          const res = await axios.get(`${this.URL}/${name.toLowerCase()}`)
+          this.pokemonDetail = res.data
+          console.log(this.pokemonDetail);
+          this.openDetails()
+        } catch(e) {
+          alert('There is no such pokemon name')
+        }      
+      } else {
+        alert('Enter name pokemon')
       }
-      this.openDetails()
     },
     openDetails() {  
       this.$modal.show(PokemonDetails, 
@@ -100,9 +108,9 @@ export default {
         }
       )
     },
-    filterByName(search) {
-      this.searchByName = search
-    },
+    // filterByName(search) {
+    //   this.searchByName = search
+    // },
     getId(url) {
        const splitted = url.split('pokemon');
        return Number(splitted[splitted.length - 1].replace(/\//g, ''));
@@ -136,43 +144,5 @@ export default {
     letter-spacing: 2px;
     margin-bottom: 1rem;
 }
-// .pagination {
-//     margin-bottom: 1rem;
-// }
-// .theme--light.v-pagination .v-pagination__item--active {
-//     background: #2196F3;
-// }
-// .theme--light.v-pagination .v-pagination__item {
-//     font-weight: 600;
-// }
-// .v-pagination__more {
-//     border-radius: 50%;
-//     color: #fff;
-// }
-// .pagination_limit_title {
-//   color: #fff;
-//     font-size: 1.2rem;
-//     text-align: center;
-//     font-weight: 600;
-// }
-// .pagination_limit {
-//     text-align: center;
-// }
-// .pagination_limit_btn {
-//   display: inline-block
-// }
-// .pagination_btn {
-//   background-color: #ffffffed;
-//     font-weight: 600;
-//     border-radius: 50%;
-//     width: 2rem;
-//     height: 2rem;
-//     margin: 0.5rem;
-//     box-shadow: -1px 0px 6px 2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
 
-//     &.active {
-//       background-color: #2196F3;
-//       color: #fff;
-//     }
-// }
 </style>
