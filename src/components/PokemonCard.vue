@@ -1,12 +1,12 @@
 <template>
-  <div class="pokemon_item" @click="showPokemon(pokemon.name)"> 
-      <img  class="pokemon_item_image" :src="`${imageURL}/${id}.png`" />
-      <div class="pokemon_item_title">
-        <span class="pokemon_item_id"> № {{ id }}</span> 
-        <h2 class="pokemon_item_text">{{ pokemon.name }}</h2>
+  <div class="pokemon_card" @click="showPokemon(pokemon.name)"> 
+      <img  class="pokemon_card_image" :src="getImage(id)" />
+      <div class="pokemon_card_title">
+        <span class="pokemon_card_id"> № {{ id }}</span> 
+        <h2 class="pokemon_card_text">{{ pokemon.name }}</h2>
       </div>  
-      <div class="pokemon-item_btn">
-        <button class="item_btn" type="button">
+      <div class="pokemon-card_btn">
+        <button class="card_btn" type="button">
           Details
         </button>
       </div>
@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     getImage(id) {
-      return `${this.imageURL}/${id}.png`;
+        return `${this.imageURL}/${id}.png`;   
     },
     showPokemon(name) {
       this.$emit("clicked", name);
@@ -39,23 +39,23 @@ export default {
 </script>
 
 <style lang="scss">
-.pokemon_item {
+.pokemon_card {
     border-radius: 0.6rem;
     box-shadow: 0px 2px 7px rgba(24, 31, 31, 0.77);
-    max-width: 18rem;
+    max-width: 22rem;
     width: 100%;
     text-align: center;
     background-color: #b4aebe;
 }
-.pokemon_item_image {
+.pokemon_card_image {
     max-width: 8rem;
     width: 100%;
     height: 8rem;
 }
-.pokemon_item_title {
+.pokemon_card_title {
     margin-bottom: 1.5rem;
 }
-.pokemon_item_id {
+.pokemon_card_id {
   display: inline-block;
     font-weight: 600;
     border: 1px solid #f7f749;
@@ -65,21 +65,21 @@ export default {
     color: #252b2b;
     background-color: #f7f749;
 }
-.pokemon_item_text {
+.pokemon_card_text {
     font-family: "Luckiest Guy", cursive;
     font-size: 30px;
     font-weight: 400;
     color: #2196F3;
     letter-spacing: 2px;
 }
-.pokemon_item_type {
+.pokemon_card_type {
     margin-bottom: 1rem;
 }
-.pokemon-item_btn {
+.pokemon-card_btn {
     margin: 1.5rem 0;
     
 }
-.item_btn {
+.card_btn {
     font-family: "Roboto", sans-serif;
     font-size: 0.9rem;
     text-transform: uppercase;
@@ -91,14 +91,14 @@ export default {
     transition-duration: 0.4s;
     cursor: pointer;
 }
-.item_btn:hover {
+.card_btn:hover {
   transition-duration: 0.1s;
   color: #68a169;
   background-color: #b9b5b4d9;
   border: 4px solid #68a169;
 }
 
-.item_btn:after {
+.card_btn:after {
   content: "";
   display: block;
   position: absolute;
@@ -112,7 +112,7 @@ export default {
   box-shadow: 0 0 10px 40px white;
 }
 
-.item_btn:active:after {
+.card_btn:active:after {
   box-shadow: 0 0 0 0 white;
   position: absolute;
   border-radius: 2em;
@@ -122,7 +122,7 @@ export default {
   transition: 0s;
 }
 
-.item_btn:active {
+.card_btn:active {
   top: 3px;
 }
 .v-btn:not(.v-btn--round).v-size--default {

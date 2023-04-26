@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <div class="pokemon_list_title">Pokedex</div>
+    <div class="pokemon_list_title">Pokemon</div>
     <SearchInput @searchPokemon="fetchPokemonDetails"/>
     <Loader :all-pokemon="allPokemon" />
     <div class="container_pokemon">
@@ -13,7 +13,7 @@
       />
     </div>
     <Pagination 
-       v-show="allPokemon.results"
+      v-show="allPokemon.results"
       :all-pokemon="allPokemon" 
       @select="fetchAllPokemon"
     />
@@ -43,7 +43,6 @@ export default {
     return {
       URL: 'https://pokeapi.co/api/v2/pokemon',
       allPokemon: [],
-      pokemonSearch: [],
       pokemonDetail: {},
     }
    },

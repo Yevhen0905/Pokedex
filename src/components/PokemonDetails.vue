@@ -42,26 +42,24 @@
                 </ul>
             </div>
         </div>
-
     </div>
 </template>
 
 <script>
-
 export default {
-    name: 'PokemonDetails',
+    name: "PokemonDetails",
     props: {
         pokemon: Object
-    },
+    }, 
     methods: {
         capitalize(str) {
-                return str.charAt(0).toUpperCase() + str.slice(1);
+            return str.charAt(0).toUpperCase() + str.slice(1);
         }
-    }
+    }, 
 }
 </script>
 
-<style>
+<style lang="scss">
 .details_container {
     font-family: "Roboto", sans-serif;
     font-size: 1.1rem;

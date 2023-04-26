@@ -2,7 +2,7 @@
    <div>
       <v-col class="search_field" cols="12" sm="6">
          <v-text-field
-            label="Search"
+            label="Enter the name of the Pokémon"
             prepend-inner-icon="mdi-magnify" 
             class="txt-search"
             v-model="search"
@@ -11,11 +11,9 @@
          </v-text-field>
       </v-col>
       <div class="block_search_item">
-         <div class="block_btn_search">
          <button class="btn_search" type="button" name="Search" @click="getPokemonSearch(search)">
             SEARCH
          </button>
-      </div>
       </div>
    </div>   
 </template>
