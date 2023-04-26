@@ -118,7 +118,6 @@ export default {
 .details_info_width {
     margin-right: 1rem;
 }
-
 .vm--container .vm--modal {
     border-radius: 0.5rem;
     margin: 0px auto;
@@ -130,7 +129,6 @@ export default {
     left: 0px !important;
     box-shadow: 2px 2px 13px -5px rgb(215 217 225);
 }
-
 .vm--container .vm--overlay {
     background: rgba(0, 0, 0, 0.7);
 }
