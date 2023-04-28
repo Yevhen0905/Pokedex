@@ -6,7 +6,6 @@
             prepend-inner-icon="mdi-magnify" 
             class="txt-search"
             v-model="search"
-            @keyup="$emit('filter', search)"
          >
          </v-text-field>
       </v-col>
