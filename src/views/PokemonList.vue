@@ -1,19 +1,19 @@
 <template>
   <div class="main">
     <div class="pokemon_list_title">Pokemon</div>
-    <SearchInput @searchPokemon="fetchPokemonDetails"/>
+    <SearchInput @filter="filter"/>
     <Loader :all-pokemon="allPokemon" />
     <div class="container_pokemon">
       <PokemonCard
         :key="pokemon.name"
-        v-for="pokemon in allPokemon.results"
+        v-for="pokemon in filterPokemon"
         :pokemon="pokemon"
         :id="getId(pokemon.url)"
         @clicked="fetchPokemonDetails"
       />
     </div>
     <Pagination 
-      v-show="allPokemon.results"
+      v-show="allPokemon"
       :all-pokemon="allPokemon" 
       @select="fetchAllPokemon"
     />
@@ -42,12 +42,24 @@ export default {
   data () {
     return {
       URL: 'https://pokeapi.co/api/v2/pokemon',
-      allPokemon: [],
+      allPokemon: {},
       pokemonDetail: {},
+      searchByName: ''
     }
    },
   mounted() {
     this.fetchAllPokemon()
+  },
+  computed: {
+    filterPokemon() {
+      if(this.searchByName === '') {
+          return this.allPokemon
+      };
+      return this.allPokemon.filter(pokemon => {
+        return pokemon.name.toLowerCase().includes(this.searchByName.toLowerCase());
+      });
+
+    }
   },
   methods: {
     async fetchAllPokemon (page, limit) {
@@ -60,23 +72,19 @@ export default {
           }
         })
         this.scrollToTop()
-        this.allPokemon = res.data
+        this.allPokemon = res.data.results
       } catch {
         console.log(e)
       }
     },
     async fetchPokemonDetails(name) {
-      if(name !== '') {
-        try {
-          const res = await axios.get(`${this.URL}/${name.toLowerCase()}`)
-          this.pokemonDetail = res.data
-          this.openDetails()
-        } catch(e) {
-          alert('There is no such pokemon name')
-        }      
-      } else {
-          alert('Enter name pokemon')
-      }
+      try {
+        const res = await axios.get(`${this.URL}/${name.toLowerCase()}`)
+        this.pokemonDetail = res.data
+        this.openDetails()
+      } catch(e) {
+        console.log(e);
+      }      
     },
     openDetails() {  
       this.$modal.show(PokemonDetails, 
@@ -105,7 +113,10 @@ export default {
         left: 0,
         behavior: 'smooth'
       });
-    }    
+    },
+    filter(search){
+            this.searchByName = search;
+        },
   }
 }
 </script>
@@ -127,5 +138,4 @@ export default {
     letter-spacing: 2px;
     margin-bottom: 1rem;
 }
-
 </style>

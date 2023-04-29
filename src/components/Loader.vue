@@ -2,7 +2,7 @@
     <div class="loader_block">
         <v-progress-circular 
           class="loader" 
-          v-if="!allPokemon.results" 
+          v-if="!allPokemon" 
           :size="50" 
           :width="5" 
           indeterminate>

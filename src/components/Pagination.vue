@@ -2,11 +2,11 @@
     <div>
         <div class="pagination">
         <v-pagination 
-           v-if="allPokemon.results" 
+           v-if="allPokemon" 
            v-model="page" 
            :total-visible="6" 
            circle
-           :length="Math.ceil(allPokemon.count / limit)" 
+           :length="Math.ceil(pokemonCount / limit)" 
            @input="getPage(page, limit)" 
            @next="getPage(page, limit)"
            @previous="getPage(page, limit)"
@@ -18,7 +18,7 @@
             <div class="pagination_limit">
                <div 
                     class="pagination_limit_btn"
-                    v-for="(newLimit) in [10, 20, 50]"
+                    v-for="(newLimit) in [10, 20, 50, 1300]"
                     :key="newLimit"
                 >
                     <button 
@@ -39,9 +39,14 @@ export default {
     props: ['allPokemon'],
     data() {
         return {
+            URL: 'https://pokeapi.co/api/v2/pokemon',
+            pokemonCount: null,
             page: 1,
             limit: 20
         }
+    },
+    mounted() {
+        this.fetchPokemonCount ()
     },
     methods: {  
         changeLimit(changeNewLimit, page) {
@@ -51,6 +56,14 @@ export default {
         getPage(page, limit) {
             this.$emit('select', page, limit )
         },
+        async fetchPokemonCount () {
+          try{
+            const res = await axios.get(this.URL)
+            this.pokemonCount = res.data.count
+          } catch(e) {
+            console.log(e)
+          }
+    },
     }
 }
 
@@ -89,7 +102,7 @@ export default {
   background-color: #ffffffed;
     font-weight: 600;
     border-radius: 50%;
-    width: 2rem;
+    width: 3rem;
     height: 2rem;
     margin: 0.5rem;
     box-shadow: -1px 0px 6px 2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);

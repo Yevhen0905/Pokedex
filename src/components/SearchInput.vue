@@ -6,14 +6,10 @@
             prepend-inner-icon="mdi-magnify" 
             class="txt-search"
             v-model="search"
+            @keyup="$emit('filter', search)"
          >
          </v-text-field>
       </v-col>
-      <div class="block_search_item">
-         <button class="btn_search" type="button" name="Search" @click="getPokemonSearch(search)">
-            SEARCH
-         </button>
-      </div>
    </div>   
 </template>
 
@@ -25,11 +21,6 @@ export default {
          search: ''
       }
    },
-   methods: {
-      getPokemonSearch(search) {
-         this.$emit('searchPokemon', search)
-      }
-   }
 }
 </script>
 
