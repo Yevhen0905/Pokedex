@@ -57,7 +57,7 @@ export default {
             this.$emit('select', page, limit )
         },
         async fetchPokemonCount () {
-          try{
+          try {
             const res = await axios.get(this.URL)
             this.pokemonCount = res.data.count
           } catch(e) {

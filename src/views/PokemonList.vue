@@ -73,7 +73,7 @@ export default {
         })
         this.scrollToTop()
         this.allPokemon = res.data.results
-      } catch {
+      } catch(e) {
         console.log(e)
       }
     },

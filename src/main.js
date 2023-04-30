@@ -3,7 +3,7 @@ import './plugins/axios'
 import App from './App.vue'
 import router from './router'
 import vuetify from './plugins/vuetify'
-import VModal from 'vue-js-modal';
+import VModal from 'vue-js-modal'
 
 require("@/assets/style/style.scss");
 

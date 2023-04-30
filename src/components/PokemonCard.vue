@@ -3,7 +3,7 @@
     <img  class="pokemon_card_image" :src="getImage(id)" />
     <div class="pokemon_card_title">
       <span class="pokemon_card_id"> № {{ id }}</span> 
-        <h2 class="pokemon_card_text">{{ pokemon.name }}</h2>
+      <h2 class="pokemon_card_text">{{ pokemon.name }}</h2>
     </div>  
     <div class="pokemon-card_btn">
       <button class="card_btn" type="button">
